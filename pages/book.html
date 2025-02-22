@@ -3,44 +3,294 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HealConnect - Doctors' Healthcare Partner</title>
+    <title>Book Your Session - HealConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fb;
+        }
+
+        .booking-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .progress-bar {
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .step {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .step.active {
+            color: #0066FF;
+            font-weight: 500;
+        }
+
+        .progress-line {
+            height: 4px;
+            background: #e0e0e0;
+            position: relative;
+        }
+
+        .progress {
+            position: absolute;
+            height: 100%;
+            background: #0066FF;
+            width: 33%;
+            transition: width 0.3s ease;
+        }
+
+        .booking-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .booking-header h1 {
+            font-size: 28px;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+        }
+
+        .booking-header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .category-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .category-card.selected {
+            border-color: #0066FF;
+            background-color: #f0f7ff;
+        }
+
+        .category-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 16px;
+        }
+
+        .category-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .category-description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .filters {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            min-width: 200px;
+            font-size: 14px;
+        }
+
+        .experts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .expert-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .expert-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 16px;
+            object-fit: cover;
+        }
+
+        .expert-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .expert-speciality {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .book-button {
+            background: #0066FF;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .book-button:hover {
+            background: #0052cc;
+        }
+
+        @media (max-width: 768px) {
+            .booking-container {
+                padding: 20px;
+            }
+
+            .filters {
+                flex-direction: column;
+            }
+
+            .filter-select {
+                width: 100%;
+            }
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            background-color: #007bff; /* Blue color */
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+    </style>
 </head>
 <body>
     <div class="booking-container">
+        <div class="progress-bar">
+            <div class="steps">
+                <div class="step active">Select Category</div>
+                <div class="step">Choose Expert</div>
+                <div class="step">Book Session</div>
+            </div>
+            <div class="progress-line">
+                <div class="progress"></div>
+            </div>
+        </div>
+
         <div class="booking-header">
-            <h1>Book Your Appointment</h1>
-            <p>Choose your preferred way to start</p>
+            <h1>What brings you to HealConnect?</h1>
+            <p>Choose a category that best describes your concern</p>
         </div>
-    
-        <!-- Add this new section at the top -->
-        <div class="booking-options">
-            <a href="category-selection.html" class="start-button">
-                Start New Consultation
-            </a>
+
+        <div class="categories">
+            <div class="category-card">
+                <img src="https://www.xr.health/wp-content/uploads/Anxiety-or-Stress-1.jpeg" alt="" class="category-icon">
+                <h3 class="category-title">Anxiety & Stress</h3>
+                <p class="category-description">Get help with anxiety, panic attacks, and stress management</p>
+            </div>
+
+            <div class="category-card">
+                <img src="https://t3.ftcdn.net/jpg/01/99/10/10/360_F_199101051_fTSB14nY7QptJUy4cD0czZRzChbu2grY.jpg" alt="" class="category-icon">
+                <h3 class="category-title">Depression</h3>
+                <p class="category-description">Support for depression and mood-related concerns</p>
+            </div>
+
+
+            <div class="category-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjE0fgm0-0f7skMl6snC3suEj6SEdBeDIBBw&s" alt="" class="category-icon">
+                <h3 class="category-title">Career Concerns</h3>
+                <p class="category-description">Guidance for career decisions and work stress</p>
+            </div>
         </div>
+
+    <script>
+        // Category selection
+        const categoryCards = document.querySelectorAll('.category-card');
+        categoryCards.forEach(card => {
+            card.addEventListener('click', () => {
+                categoryCards.forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+            });
+        });
+
+        // Filter handling
+        const filters = document.querySelectorAll('.filter-select');
+        filters.forEach(filter => {
+            filter.addEventListener('change', () => {
+                // Add your filter logic here
+                console.log('Filter changed:', filter.value);
+            });
+        });
+
+        // Booking button handling
+        const bookButtons = document.querySelectorAll('.book-button');
+        bookButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Add your booking logic here
+                console.log('Booking requested for:', 
+                    button.parentElement.querySelector('.expert-name').textContent);
+            });
+        });
+    </script>
+    <div>
+        <a href="choose.html" class="btn">Continue</a>
+    </div>
     
-        <!-- Add these styles in the <style> section -->
-        <style>
-            .booking-options {
-                text-align: center;
-                margin: 30px 0;
-            }
-    
-            .start-button {
-                display: inline-block;
-                background-color: #27ae60;
-                color: white;
-                padding: 15px 30px;
-                border-radius: 5px;
-                text-decoration: none;
-                font-size: 16px;
-                transition: background-color 0.3s ease;
-            }
-    
-            .start-button:hover {
-                background-color: #219a52;
-            }
-        </style>
-    </div> 
+
 </body>
 </html>

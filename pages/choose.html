@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Expert - HealConnect</title>
+    <style>
+        .booking-section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            margin: 0 20px;
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+
+        .step-number.active {
+            background-color: #3498db;
+        }
+
+        .step-text {
+            color: #7f8c8d;
+        }
+
+        .step-text.active {
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .booking-grid {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+        }
+
+        .filters {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+
+        .therapist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .therapist-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .therapist-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .therapist-header {
+            display: flex;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .therapist-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+
+        .therapist-info {
+            flex: 1;
+        }
+
+        .therapist-name {
+            color: #2c3e50;
+            margin: 0 0 5px 0;
+            font-size: 1.2em;
+        }
+
+        .therapist-title {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .therapist-stats {
+            display: flex;
+            gap: 15px;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        .therapist-body {
+            padding: 20px;
+        }
+
+        .expertise-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .expertise-tag {
+            background: #f0f7ff;
+            color: #3498db;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+
+        .therapist-description {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .time-slot {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .time-slot:hover {
+            background-color: #f0f7ff;
+            border-color: #3498db;
+        }
+
+        .time-slot.selected {
+            background-color: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+
+        .book-btn {
+            background-color: #3498db;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+
+        .book-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .filter-group {
+            margin-bottom: 20px;
+        }
+
+        .filter-group h3 {
+            color: #2c3e50;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+        }
+
+        .filter-options label {
+            display: block;
+            margin: 8px 0;
+            color: #34495e;
+            cursor: pointer;
+        }
+
+        .filter-options input[type="checkbox"] {
+            margin-right: 8px;
+        }
+        /* Styling for the 'Get Started' Button */
+.cta-button {
+    display: inline-block;
+    background-color: #004aad; /* Professional blue */
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+    box-shadow: 0px 4px 8px rgba(0, 74, 173, 0.2);
+}
+
+/* Hover Effect */
+.cta-button:hover {
+    background-color: #003580; /* Darker blue */
+    transform: translateY(-2px);
+}
+
+/* Click Effect */
+.cta-button:active {
+    transform: translateY(1px);
+}
+
+/* Centering Inside .hero-content */
+.hero-content {
+    text-align: center;
+    margin-top: 20px;
+}
+
+    </style>
+</head>
+<body>
+    <section class="booking-section">
+        <div class="progress-bar">
+            <div class="progress-step">
+                <div class="step-number active">1</div>
+                <div class="step-text active">Choose Expert</div>
+            </div>
+            <div class="progress-step">
+                <div class="step-number">2</div>
+                <div class="step-text">Book Session</div>
+            </div>
+        </div>
+
+        <div class="booking-grid">
+            <div class="filters">
+                <div class="filter-group">
+                    <h3>Specialization</h3>
+                    <div class="filter-options">
+                        <label><input type="checkbox" value="stress"> Stress Management</label>
+                        <label><input type="checkbox" value="burnout"> Burnout</label>
+                        <label><input type="checkbox" value="anxiety"> Anxiety</label>
+                        <label><input type="checkbox" value="depression"> Depression</label>
+                        <label><input type="checkbox" value="trauma"> Trauma</label>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <h3>Experience Level</h3>
+                    <div class="filter-options">
+                        <label><input type="checkbox" value="5+"> 5+ years</label>
+                        <label><input type="checkbox" value="10+"> 10+ years</label>
+                        <label><input type="checkbox" value="15+"> 15+ years</label>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <h3>Language</h3>
+                    <div class="filter-options">
+                        <label><input type="checkbox" value="english"> English</label>
+                        <label><input type="checkbox" value="spanish"> Spanish</label>
+                        <label><input type="checkbox" value="french"> French</label>
+                        <label><input type="checkbox" value="mandarin"> Mandarin</label>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <h3>Session Type</h3>
+                    <div class="filter-options">
+                        <label><input type="checkbox" value="video"> Video Call</label>
+                        <label><input type="checkbox" value="audio"> Audio Call</label>
+                        <label><input type="checkbox" value="chat"> Chat Session</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="therapist-grid">
+                <!-- Expert 1 -->
+                <div class="therapist-card">
+                    <div class="therapist-header">
+                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2" 
+                             alt="Dr. Sarah Johnson" 
+                             class="therapist-image">
+                        <div class="therapist-info">
+                            <h3 class="therapist-name">Dr. Sarah Johnson</h3>
+                            <p class="therapist-title">Clinical Psychologist, PhD</p>
+                            <div class="therapist-stats">
+                                <span>⭐ 4.9 (120 reviews)</span>
+                                <span>📅 12+ years</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="therapist-body">
+                        <div class="expertise-tags">
+                            <span class="expertise-tag">Stress Management</span>
+                            <span class="expertise-tag">Burnout</span>
+                            <span class="expertise-tag">Anxiety</span>
+                            <span class="expertise-tag">Depression</span>
+                        </div>
+                        <p class="therapist-description">
+                            Specialized in helping healthcare professionals manage stress and prevent burnout. 
+                            Experienced in trauma-informed care and evidence-based therapeutic approaches.
+                        </p>
+                        
+                        
+                        <div class="hero-content">
+                            <a href="expert.html" class="cta-button">Select</a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Expert 2 -->
+                <div class="therapist-card">
+                    <div class="therapist-header">
+                        <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7" 
+                             alt="Dr. Michael Chen" 
+                             class="therapist-image">
+                        <div class="therapist-info">
+                            <h3 class="therapist-name">Dr. Michael Chen</h3>
+                            <p class="therapist-title">Psychiatrist, MD</p>
+                            <div class="therapist-stats">
+                                <span>⭐ 4.8 (98 reviews)</span>
+                                <span>📅 15+ years</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="therapist-body">
+                        <div class="expertise-tags">
+                            <span class="expertise-tag">PTSD</span>
+                            <span class="expertise-tag">Trauma</span>
+                            <span class="expertise-tag">Depression</span>
+                            <span class="expertise-tag">Anxiety</span>
+                        </div>
+                        <p class="therapist-description">
+                            Expert in treating trauma and PTSD in medical professionals. 
+                            Combines medication management with therapeutic approaches when needed.
+                        </p>
+
+                        <div class="hero-content">
+                            <a href="expert.html" class="cta-button">Select</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expert 3 -->
+                <div class="therapist-card">
+                    <div class="therapist-header">
+                        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df" 
+                             alt="Dr. Emily Martinez" 
+                             class="therapist-image">
+                        <div class="therapist-info">
+                            <h3 class="therapist-name">Dr. Emily Martinez</h3>
+                            <p class="therapist-title">Clinical Psychologist, PsyD</p>
+                            <div class="therapist-stats">
+                                <span>⭐ 4.9 (145 reviews)</span>
+                                <span>📅 8+ years</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="therapist-body">
+                        <div class="expertise-tags">
+                            <span class="expertise-tag">Work-Life Balance</span>
+                            <span class="expertise-tag">Stress</span>
+                            <span class="expertise-tag">Career Counseling</span>
+                            <span class="expertise-tag">Mindfulness</span>
+                        </div>
+                        <p class="therapist-description">
+                            Specializes in work-life balance and mindfulness-based stress reduction. 
+                            Experienced in helping medical professionals navigate career challenges.
+                        </p>
+                        <div class="hero-content">
+                            <a href="expert.html" class="cta-button">Select</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Time slot selection
+        document.querySelectorAll('.time-slot').forEach(slot => {
+            slot.addEventListener('click', function() {
+                // Remove selected class from all slots in this therapist card
+                this.closest('.therapist-body').querySelectorAll('.time-slot').forEach(s => {
+                    s.classList.remove('selected');
+                });
+                // Add selected class to clicked slot
+                this.classList.add('selected');
+            });
+        });
+
+        // Book button click handler
+        document.querySelectorAll('.book-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const selectedSlot = this.closest('.therapist-body').querySelector('.time-slot.selected');
+                if (selectedSlot) {
+                    const time = selectedSlot.textContent;
+                    const therapist = this.closest('.therapist-card').querySelector('.therapist-name').textContent;
+                    // Store selection in localStorage
+                    localStorage.setItem('selectedTherapist', therapist);
+                    localStorage.setItem('selectedTime', time);
+                    // Redirect to booking details page
+                    window.location.href = 'book-session.html';
+                } else {
+                    alert('Please select a time slot first');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
