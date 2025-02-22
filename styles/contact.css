@@ -338,3 +338,36 @@ body {
         font-size: 1.2rem;
     }
 }
+.book-button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background: #3498db;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+.book-button:hover {
+    background: #2980b9;
+}
+.nav-buttons a {
+    text-decoration: none;
+    color: #2c3e50;
+    margin-left: 20px;
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.nav-buttons a.signin {
+    border: 1px solid #3498db;
+    color: #3498db;
+}
+
+.nav-buttons a.register {
+    background-color: #3498db;
+    color: white;
+}
